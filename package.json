@@ -2,7 +2,7 @@
   "name": "react-essentials",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://saahiljaffer.com/ideal-octo-dollop",
+  "homepage": "https://saahiljaffer.com/omdb",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
