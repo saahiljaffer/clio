@@ -1,6 +1,16 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
+// import Container from "react-bootstrap/lib/Container";
+import {
+  Container,
+  Col,
+  Row,
+  ListGroup,
+  // Form,
+  // FormControl,
+} from "react-bootstrap";
+// import Row from "react-bootstrap/Row";
 
 function Search({ setTitle }) {
   const onChange = (event) => {
@@ -9,25 +19,24 @@ function Search({ setTitle }) {
 
   return (
     <div>
+      <h5>Movie title</h5>
       <input
         onChange={onChange}
         type="text"
         id="textInput"
-        placeholder="Movie Title"
+        placeholder="Search"
+        className="w-100 p-3"
+        style={{ width: "100%" }}
+        // className="mr-sm-2"
       />
     </div>
   );
 }
 
-function Results({ title, page, updateNominated }) {
+function Results({ title, page, setNominated, nominated, setPage }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const nominate = (event) => {
-    var data = event.target.value;
-    updateNominated((arr) => [...arr, `${arr.length}`]);
-  };
 
   useEffect(() => {
     if (!title) return;
@@ -44,65 +53,127 @@ function Results({ title, page, updateNominated }) {
   }, [page, title]);
 
   if (title.length < 3)
-    return <p>Please enter a search query of at least 3 characters</p>;
+    return <h5>Please search with at least 3 characters</h5>;
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <h5>Loading...</h5>;
 
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
   if (!data) return null;
 
-  console.log(data);
-
-  if (data.Response === "False") return <p>Movie Not Found</p>;
+  if (data.Response === "False") return <h5>No results for "{title}"</h5>;
 
   return (
-    <div>
-      <ul>
+    <>
+      <h5>Results for "{title}"</h5>
+      <ListGroup className="list-unstyled">
         {data.Search.map((data) => (
-          <li key={data.imdbID}>
-            {data.Title} - {data.Year}
-            <Button onClick={nominate} variant="dark" value={data.imdbID}>
-              Nominate
-            </Button>
-          </li>
+          <ListGroup.Item key={data.imdbID}>
+            {/* <Container> */}
+            <Row className="align-items-center">
+              <Col md="auto">
+                <Button
+                  onClick={() =>
+                    setNominated({ list: [...nominated.list, data] })
+                  }
+                  variant="outline-secondary"
+                  size="sm"
+                  name="imdbID"
+                  value={data.imdbID}
+                >
+                  Nominate
+                </Button>
+              </Col>
+              <Col>
+                {data.Title} ({data.Year})
+              </Col>
+            </Row>
+            {/* </Container> */}
+          </ListGroup.Item>
         ))}
-      </ul>
-    </div>
+        <ListGroup.Item>
+          <Row>
+            <Col style={{ textAlign: "center" }}>
+              <Button
+                style={{ textAlign: "center" }}
+                size="sm"
+                variant="outline-secondary"
+                onClick={() => setPage(page + 1)}
+              >
+                Next Page
+              </Button>
+            </Col>
+          </Row>
+        </ListGroup.Item>
+      </ListGroup>
+    </>
   );
 }
 
-function Nominated({ nominated }) {
-  const remove = (event) => {
-    console.log(event.target.value);
-  };
-
+function Nominated({ nominated, setNominated }) {
   return (
-    <div>
-      <ul>
-        {nominated.map((movie) => (
-          <li key={movie}>
-            {movie.Title} - {movie.Year}
-            <Button onClick={remove} variant="dark" value={movie.imdbID}>
-              Nominate
-            </Button>
-          </li>
+    <>
+      <h5>Nominations</h5>
+      <ListGroup className="list-unstyled">
+        {nominated.list.map((movie) => (
+          <ListGroup.Item key={movie.imdbID}>
+            <Row className="align-items-center">
+              <Col md="auto">
+                <Button
+                  onClick={() =>
+                    setNominated({
+                      list: nominated.list.filter((e) => e !== movie),
+                    })
+                  }
+                  variant="outline-secondary"
+                  size="sm"
+                  name="imdbID"
+                  value={movie.imdbID}
+                >
+                  Remove
+                </Button>
+              </Col>
+              <Col>
+                {movie.Title} ({movie.Year})
+              </Col>
+            </Row>
+          </ListGroup.Item>
         ))}
-      </ul>
-    </div>
+      </ListGroup>
+    </>
   );
 }
 
 function App() {
   const [title, setTitle] = useState("");
   const [page, setPage] = useState(1);
-  const [nominated, updateNominated] = useState([]);
+  const [nominated, setNominated] = useState({ list: [] });
 
   return (
     <>
-      <Search setTitle={setTitle} />
-      <Results title={title} page={page} updateNominated={updateNominated} />
-      <Nominated nominated={nominated} />
+      <Container className="bg-light">
+        <Row className="py-5">
+          <Col>
+            <h2>The Shoppies</h2>
+            <Search setTitle={setTitle} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Results
+              title={title}
+              page={page}
+              setPage={setPage}
+              setNominated={setNominated}
+              nominated={nominated}
+            />
+          </Col>
+          {/* <div className="d-lg-none w-100"></div> */}
+          <Col>
+            <Nominated nominated={nominated} setNominated={setNominated} />
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }
