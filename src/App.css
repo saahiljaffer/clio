@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 } */
+
+.page-link {
+  color: #6c757d !important;
+}
+
+.page-link:hover {
+  background-color: #ececf6 !important;
+}
+
+.active .page-link {
+  color: #ffffff !important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.disabled .page-link {
+  color: #abb1b6 !important;
+}
+/* 
+.list-group-item-light .list-group-item-action:hover {
+  color: #fdfdfe !important;
+  background-color: #fdfdfe !important;
+  outline: none !important; 
+}
+  */
