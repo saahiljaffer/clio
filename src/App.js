@@ -84,19 +84,27 @@ function Results({ title, page, setNominated, nominated, setPage }) {
   let items = [];
 
   items.push(
-    <Pagination.First disabled={page === 1} onClick={() => setPage(1)} />
+    <Pagination.First
+      key="first"
+      disabled={page === 1}
+      onClick={() => setPage(1)}
+    />
   );
   items.push(
-    <Pagination.Prev disabled={page === 1} onClick={() => setPage(page - 1)} />
+    <Pagination.Prev
+      key="previous"
+      disabled={page === 1}
+      onClick={() => setPage(page - 1)}
+    />
   );
 
   var firstPage = Math.max(page - 2, 1);
   var maxPage = Math.ceil(data.totalResults / 10);
   var lastPage = Math.min(maxPage, firstPage + 4);
 
-  if (lastPage - page === 1) {
+  if (firstPage >= 2 && lastPage - page === 1) {
     firstPage -= 1;
-  } else if (lastPage - page === 0) {
+  } else if (firstPage >= 3 && lastPage - page === 0) {
     firstPage -= 2;
   }
 
@@ -115,12 +123,14 @@ function Results({ title, page, setNominated, nominated, setPage }) {
 
   items.push(
     <Pagination.Next
+      key="next"
       disabled={page === maxPage}
       onClick={() => setPage(page + 1)}
     />
   );
   items.push(
     <Pagination.Last
+      key="last"
       disabled={page === maxPage}
       onClick={() => setPage(maxPage)}
     />
@@ -134,18 +144,13 @@ function Results({ title, page, setNominated, nominated, setPage }) {
       <Card.Body style={{ padding: "0" }}>
         <ListGroup variant="flush">
           {data.Search.map((data) => (
-            <ListGroup.Item eventKey={data.imdbID}>
+            <ListGroup.Item key={data.imdbID}>
               <Row className="align-items-center">
                 <Col sm="auto" style={{ width: "auto" }}>
                   <Button
                     onClick={() => {
                       if (nominated.list.length < 5) {
                         setNominated({ list: [...nominated.list, data] });
-                        localStorage.setItem(
-                          "nominated",
-                          JSON.stringify(nominated)
-                        );
-                        console.log(nominated.list);
                       }
                     }}
                     disabled={
@@ -182,7 +187,7 @@ function Results({ title, page, setNominated, nominated, setPage }) {
             >
               Next Page
             </Button>
-          </Col> */}
+                  </Col> */}
         </Row>
       </Card.Footer>
     </div>
@@ -232,7 +237,12 @@ function Nominated({ nominated, setNominated }) {
 function App() {
   const [title, setTitle] = useState("");
   const [page, setPage] = useState(1);
-  const [nominated, setNominated] = useState({ list: [] });
+  const saved = JSON.parse(localStorage.getItem("nominated"));
+  const [nominated, setNominated] = useState(saved || { list: [] });
+
+  useEffect(() => {
+    localStorage.setItem("nominated", JSON.stringify(nominated));
+  }, [nominated]);
 
   document.body.style = "background: #E9E9EC;";
 
