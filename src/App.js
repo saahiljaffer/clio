@@ -27,7 +27,7 @@ function Search({ setTitle, setPage }) {
             onChange={onChange}
             type="text"
             id="textInput"
-            placeholder="Please search with 3+ characters"
+            placeholder="Please search with 3+ characters..."
             className="w-100 p-3"
             style={{ width: "100%" }}
           />
@@ -134,13 +134,18 @@ function Results({ title, page, setNominated, nominated, setPage }) {
       <Card.Body style={{ padding: "0" }}>
         <ListGroup variant="flush">
           {data.Search.map((data) => (
-            <ListGroup.Item action variant="light" key={data.imdbID}>
+            <ListGroup.Item eventKey={data.imdbID}>
               <Row className="align-items-center">
                 <Col sm="auto" style={{ width: "auto" }}>
                   <Button
                     onClick={() => {
                       if (nominated.list.length < 5) {
                         setNominated({ list: [...nominated.list, data] });
+                        localStorage.setItem(
+                          "nominated",
+                          JSON.stringify(nominated)
+                        );
+                        console.log(nominated.list);
                       }
                     }}
                     disabled={
@@ -194,9 +199,9 @@ function Nominated({ nominated, setNominated }) {
         <Card.Body style={{ minHeight: "0", padding: "0" }}>
           <ListGroup variant="flush">
             {nominated.list.map((movie) => (
-              <ListGroup.Item action variant="light" key={movie.imdbID}>
+              <ListGroup.Item key={movie.imdbID}>
                 <Row className="align-items-center">
-                  <Col md="auto">
+                  <Col sm="auto" style={{ width: "auto" }}>
                     <Button
                       onClick={() =>
                         setNominated({

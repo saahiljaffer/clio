@@ -54,6 +54,19 @@
 .disabled .page-link {
   color: #abb1b6 !important;
 }
+
+.card-title {
+  margin-bottom: 0 !important;
+}
+
+h5,
+.h5 {
+  margin-bottom: 0 !important;
+}
+
+.pagination {
+  margin-bottom: 0 !important;
+}
 /* 
 .list-group-item-light .list-group-item-action:hover {
   color: #fdfdfe !important;
