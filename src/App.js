@@ -94,9 +94,9 @@ function Results({ title, page, setNominated, nominated, setPage }) {
   var maxPage = Math.ceil(data.totalResults / 10);
   var lastPage = Math.min(maxPage, firstPage + 4);
 
-  if (lastPage - page === 1) {
+  if (firstPage >= 2 && lastPage - page === 1) {
     firstPage -= 1;
-  } else if (lastPage - page === 0) {
+  } else if (firstPage >= 3 && lastPage - page === 0) {
     firstPage -= 2;
   }
 
