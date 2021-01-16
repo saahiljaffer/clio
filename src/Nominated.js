@@ -7,7 +7,7 @@ function NominatedList({ nominated, setNominated }) {
         <ListGroup.Item key={movie.imdbID}>
           <Row className="align-items-center">
             {/* Button */}
-            <Col sm="auto" style={{ width: "auto" }}>
+            <Col className="px-2" sm="auto" style={{ width: "auto" }}>
               <Button
                 onClick={() =>
                   setNominated({
@@ -25,7 +25,7 @@ function NominatedList({ nominated, setNominated }) {
               </Button>
             </Col>
             {/* Movie Poster */}
-            <Col sm="auto" style={{ width: "auto" }}>
+            <Col className="px-2" sm="auto" style={{ width: "auto" }}>
               <Image
                 src={movie.Poster}
                 alt=""
@@ -34,7 +34,7 @@ function NominatedList({ nominated, setNominated }) {
               />
             </Col>
             {/* Movie Information */}
-            <Col>
+            <Col className="px-2">
               {movie.Title} ({movie.Year})
             </Col>
           </Row>

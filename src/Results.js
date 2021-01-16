@@ -76,7 +76,7 @@ function ResultsList({ data, nominated, setNominated }) {
         <ListGroup.Item key={data.imdbID}>
           <Row className="align-items-center">
             {/* Nominate Buttons */}
-            <Col sm="auto" style={{ width: "auto" }}>
+            <Col className="px-2" sm="auto" style={{ width: "auto" }}>
               <Button
                 // Add to list if list has space
                 onClick={() => {
@@ -99,7 +99,7 @@ function ResultsList({ data, nominated, setNominated }) {
               </Button>
             </Col>
             {/* Movie Poster */}
-            <Col sm="auto" style={{ width: "auto" }}>
+            <Col className="px-2" sm="auto" style={{ width: "auto" }}>
               <Image
                 src={data.Poster}
                 alt=""
@@ -108,7 +108,7 @@ function ResultsList({ data, nominated, setNominated }) {
               />
             </Col>
             {/* Movie Information */}
-            <Col>
+            <Col className="px-2">
               {data.Title} ({data.Year})
             </Col>
           </Row>
