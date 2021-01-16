@@ -8,6 +8,7 @@ import {
   Card,
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { imageHelper } from "./Functions.js";
 
 //Pagination for results page
 function ResultsPagination({ page, setPage, data }) {
@@ -101,7 +102,7 @@ function ResultsList({ data, nominated, setNominated }) {
             {/* Movie Poster */}
             <Col className="px-2" sm="auto" style={{ width: "auto" }}>
               <Image
-                src={data.Poster}
+                src={imageHelper(data.Poster)}
                 alt=""
                 style={{ height: "40px", width: "27px" }}
                 rounded
