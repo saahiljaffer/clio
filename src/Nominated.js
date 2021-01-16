@@ -1,4 +1,5 @@
 import { ListGroup, Card, Row, Col, Button, Image } from "react-bootstrap";
+import { imageHelper } from "./Functions.js";
 
 function NominatedList({ nominated, setNominated }) {
   return (
@@ -27,7 +28,7 @@ function NominatedList({ nominated, setNominated }) {
             {/* Movie Poster */}
             <Col className="px-2" sm="auto" style={{ width: "auto" }}>
               <Image
-                src={movie.Poster}
+                src={imageHelper(movie.Poster)}
                 alt=""
                 style={{ height: "40px", width: "27px" }}
                 rounded

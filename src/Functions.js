@@ -1,6 +1,6 @@
 export function imageHelper(imageUrl) {
   if (imageUrl === "N/A") {
-    return "%PUBLIC_URL%/black.jpg";
+    return "https://saahiljaffer.com/black.jpg";
   }
   return imageUrl;
 }
