@@ -1,4 +1,4 @@
-# [The Shoppies](https://clio.saahiljaffer.com/)
+# [The Clio Awards](https://clio.saahiljaffer.com/)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/97ee9472-dcb1-4bc5-982b-b6a887f4f9e6/deploy-status)](https://app.netlify.com/sites/competent-wescoff-fcec25/deploys)
 
