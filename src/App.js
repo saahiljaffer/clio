@@ -25,7 +25,7 @@ function App() {
         {/* Search */}
         <Row>
           <Col className="py-3">
-            <h2>The Shoppies</h2>
+            <h2>The Clio Awards</h2>
             <Search setTitle={setTitle} setPage={setPage} />
           </Col>
         </Row>
